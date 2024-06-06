@@ -1,0 +1,42 @@
+version: "3"
+services:
+  fhir:
+    container_name: hapi-fhir
+    image: "hapiproject/hapi:v7.0.2"
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    networks:
+      - database
+    configs:
+      - source: hapi
+        target: /app/config/application.yaml
+
+# The volumes
+configs:
+  hapi:
+    file: ./hapi.application.yaml
+networks:
+  database:
+    name: docker-network
+    external: true
+#version: "3"
+#services:
+#  hapi-fhir-jpaserver-start:
+#    build: .
+#    container_name: hapi-fhir-jpaserver-start
+#    restart: on-failure
+#    ports:
+#      - "8080:8080"
+ # hapi-fhir-postgres:
+ #   image: postgres:13-alpine
+ #   container_name: hapi-fhir-postgres
+ #   restart: always
+ #   environment:
+ #     POSTGRES_DB: "hapi"
+ #     POSTGRES_USER: "admin"
+ #     POSTGRES_PASSWORD: "admin"
+ #   volumes:
+ #     - hapi-fhir-postgres:/var/lib/postgresql/data
+#volumes:
+#  hapi-fhir-postgres:
