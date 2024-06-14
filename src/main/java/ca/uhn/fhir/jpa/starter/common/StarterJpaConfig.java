@@ -104,7 +104,10 @@ public class StarterJpaConfig {
 
 	@Primary
 	@Bean
-	public CachingValidationSupport validationSupportChain(JpaValidationSupportChain theJpaValidationSupportChain, IFhirSystemDao<?, ?> fhirSystemDao) {
+	public CachingValidationSupport validationSupportChain(JpaValidationSupportChain theJpaValidationSupportChain) {
+		return ValidationSupportConfigUtil.newCachingValidationSupport(theJpaValidationSupportChain);
+	}
+	/**public CachingValidationSupport validationSupportChain(JpaValidationSupportChain theJpaValidationSupportChain, IFhirSystemDao<?, ?> fhirSystemDao) {
 		FhirContext ctx = fhirSystemDao.getContext();
 
 		DefaultProfileValidationSupport defaultSupport = new DefaultProfileValidationSupport(ctx);
@@ -114,14 +117,14 @@ public class StarterJpaConfig {
 		theJpaValidationSupportChain.addValidationSupport(remoteTermSvc);
 
 		return ValidationSupportConfigUtil.newCachingValidationSupport(theJpaValidationSupportChain);
-	}
-
+	}*/
+	/**
 	@Primary
 	@Bean
 	public IValidatorModule validatorModule(CachingValidationSupport validationSupport) {
 		return new FhirInstanceValidator(validationSupport);
 	}
-
+	*/
 	@Autowired
 	private ConfigurableEnvironment configurableEnvironment;
 
